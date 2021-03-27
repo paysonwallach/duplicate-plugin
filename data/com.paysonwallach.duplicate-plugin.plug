@@ -1,0 +1,3 @@
+[Plugin]
+Name=File Roller
+File=libcom.paysonwallach.duplicate-plugin.so

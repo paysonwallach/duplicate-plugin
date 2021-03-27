@@ -1,0 +1,59 @@
+{
+  "private": true,
+  "name": "duplicate-plugin",
+  "description": "Pantheon Files plugin providing easy duplication of items from the context menu.",
+  "license": "GPL-3.0",
+  "author": "Payson Wallach <payson@paysonwallach.com>",
+  "homepage": "https://github.com/paysonwallach/duplicate-plugin#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/paysonwallach/duplicate-plugin"
+  },
+  "version": "0.1.0",
+  "scripts": {
+    "build:meta": "scrivano",
+    "format": "run-p format:*",
+    "format:js": "prettier --write .",
+    "format:package.json": "prettier-package-json --write",
+    "format:vala": "find . -name '*.vala' -exec uncrustify -c uncrustify.cfg --replace {} \\;",
+    "release": "standard-version"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^12.0.1",
+    "@commitlint/config-conventional": "^12.0.1",
+    "husky": "^5.1.3",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.2.1",
+    "prettier-package-json": "^2.1.3",
+    "scrivano": "^0.1.0",
+    "standard-version": "^9.1.1"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "npm run format"
+    }
+  },
+  "meta": {
+    "title": "Duplicate Plugin",
+    "repository": {
+      "owner": "paysonwallach",
+      "name": "duplicate-plugin"
+    },
+    "license": {
+      "name": "GNU General Public License v3.0",
+      "url": "https://github.com/paysonwallach/duplicate-plugin/blob/master/LICENSE"
+    },
+    "codeOfConduct": {
+      "url": "https://github.com/paysonwallach/duplicate-plugin/blob/master/CODE_OF_CONDUCT.md"
+    },
+    "releases": {
+      "url": "https://github.com/paysonwallach/duplicate-plugin/releases"
+    }
+  },
+  "standard-version": {
+    "scripts": {
+      "precommit": "npm run build:meta"
+    }
+  }
+}
