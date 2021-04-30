@@ -66,6 +66,7 @@ namespace Marlin.Plugins {
 
             plugins.menuitem_references.add (menu_item);
             menu.append (menu_item);
+            menu.reorder_child (menu_item, (int) menu.get_children ().length () - 3);
             menu_item.show ();
         }
 
