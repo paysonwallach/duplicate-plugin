@@ -15,22 +15,22 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Marlin.Plugins {
+namespace Files.Plugins {
     private class DuplicateMenuItem : Gtk.MenuItem {
-        private unowned List<File> files;
+        private unowned List<GLib.File> files;
 
-        public DuplicateMenuItem (List<File> files) {
+        public DuplicateMenuItem (List<GLib.File> files) {
             this.files = files;
             this.label = "Duplicate";
         }
 
-        private File get_duplicate_destination (File parent, string basename, int count = 1, int max_name_length = -2) {
+        private GLib.File get_duplicate_destination (GLib.File parent, string basename, int count = 1, int max_name_length = -2) {
             if (max_name_length == -2)
-                max_name_length = PF.FileUtils.get_max_name_length (parent);
+                max_name_length = Files.FileUtils.get_max_name_length (parent);
 
-            var destination = File.new_build_filename (
+            var destination = GLib.File.new_build_filename (
                 parent.get_path (),
-                PF.FileUtils.get_duplicate_name (basename, count, max_name_length));
+                Files.FileUtils.get_duplicate_name (basename, count, max_name_length));
 
             if (destination.query_exists ())
                 return get_duplicate_destination (parent, basename, ++count, max_name_length);
@@ -49,12 +49,12 @@ namespace Marlin.Plugins {
     }
 
     public class Duplicate : Base {
-        public override void context_menu (Gtk.Widget widget, List<GOF.File> gof_files) {
+        public override void context_menu (Gtk.Widget widget, List<Files.File> gof_files) {
             if (gof_files == null)
                 return;
 
-            var files = new List<File>();
-            foreach (unowned GOF.File file in gof_files)
+            var files = new List<GLib.File>();
+            foreach (unowned Files.File file in gof_files)
                 if (file.location != null)
                     if (file.location.get_uri_scheme () == "recent")
                         files.append (GLib.File.new_for_uri (file.get_display_target_uri ()));
@@ -74,6 +74,6 @@ namespace Marlin.Plugins {
 
 }
 
-public Marlin.Plugins.Base module_init () {
-    return new Marlin.Plugins.Duplicate ();
+public Files.Plugins.Base module_init () {
+    return new Files.Plugins.Duplicate ();
 }
